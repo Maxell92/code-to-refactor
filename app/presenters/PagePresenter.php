@@ -7,6 +7,7 @@ use App\Model\ClAccountInfo;
 use App\Model\Config;
 use App\Model\Enum\ProjectType;
 use App\Model\Enum\TroubleState;
+use App\Model\Tracking;
 
 class PagePresenter extends BasePresenter
 {
@@ -19,6 +20,9 @@ class PagePresenter extends BasePresenter
 
     /** @var Config @inject */
     public $config;
+
+    /** @var Tracking @inject */
+    public $tracking;
 
     protected function startup()
     {
@@ -36,11 +40,7 @@ class PagePresenter extends BasePresenter
         $this->template->configSectionLoc = $this->config->getLoc();
         $this->template->configSectionApp = $this->config->getApp();
 
-        $runningTracking = $this->dm->getDb()->select('dt')->from('tracking')
-            ->where("person_id = %i AND [in] IS NULL", $this->clIdentity->getPersonId())
-            ->execute()->fetchSingle();
-
-        $this->template->trackingStartTime = $runningTracking;
+        $this->template->trackingStartTime = $this->tracking->getRunningTracking();;
     }
 
 

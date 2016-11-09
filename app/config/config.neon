@@ -9,6 +9,7 @@ parameters:
 
 services:
 	- App\Model\Config(%config.section.loc%, %config.section.app%)
+	- App\Model\Tracking
 
 includes:
 	- extensions.neon
