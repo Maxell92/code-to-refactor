@@ -18,10 +18,10 @@ mb_internal_encoding('UTF-8');
 DibiNettePanel::$maxLength = 2500;
 
 // Create Dependency Injection container from config.neon file
-$configurator->addConfig(__DIR__ . '/config/config.neon', APP_ENV);
+$configurator->addConfig(__DIR__ . '/config/config.neon');
 if (file_exists(__DIR__ . '/config/config.local.neon'))
 {
-    $configurator->addConfig(__DIR__ . '/config/config.local.neon', $configurator::NONE); // none section
+    $configurator->addConfig(__DIR__ . '/config/config.local.neon'); // none section
 }
 
 $container = $configurator->createContainer();
