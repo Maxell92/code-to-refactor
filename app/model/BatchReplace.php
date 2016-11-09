@@ -20,7 +20,7 @@ class BatchReplace
     private $field;
 
     /** @var array */
-    private $keyReplacements = array();
+    private $keyReplacements = [];
 
     public function __construct(Mapper $mapper, array $data, $field)
     {
@@ -39,9 +39,19 @@ class BatchReplace
         return $this;
     }
 
-    public function setKeyReplacements($keyReplacements)
+    /**
+     * @param array $keyReplacements
+     * @deprecated
+     */
+    public function setKeyReplacements(array $keyReplacements)
     {
+        trigger_error(__METHOD__ . '() is deprecated; use $this->addReplacement($what, $to) instead.', E_USER_DEPRECATED);
         $this->keyReplacements = $keyReplacements;
+    }
+
+    public function addReplacement($what, $to)
+    {
+        $this->keyReplacements[$what] = $to;
     }
 
     public function save()
@@ -50,10 +60,11 @@ class BatchReplace
             $this->mapper->scope($this->entity);
         }
 
-        foreach($this->data as &$value) {
-            if(isset($this->keyReplacements[$value])) {
-                $value = $this->keyReplacements[$value];
+        foreach($this->data as $key => $value) {
+            if(!isset($this->keyReplacements[$value])) {
+                continue;
             }
+            $this->data[$key] = $this->keyReplacements[$value];
         }
 
         $this->mapper->replace($this->data, $this->field);
