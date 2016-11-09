@@ -1,0 +1,3 @@
+extensions:
+	dibiPayments: Dibi\Bridges\Nette\DibiExtension22
+	dbDemoAccount: Dibi\Bridges\Nette\DibiExtension22

@@ -15,11 +15,6 @@ mb_internal_encoding('UTF-8');
 
 // \Tracy\Debugger::$maxDepth = 5;
 
-$configurator->onCompile[] = function($configurator, $compiler) {
-    $compiler->addExtension('dibiPayments', new \Dibi\Bridges\Nette\DibiExtension22());
-    $compiler->addExtension('dbDemoAccount', new \Dibi\Bridges\Nette\DibiExtension22()); // nazev sekce bude dbDemoAccount
-};
-
 DibiNettePanel::$maxLength = 2500;
 
 // Create Dependency Injection container from config.neon file
