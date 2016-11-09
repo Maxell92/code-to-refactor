@@ -1,11 +1,17 @@
 <?php
 
-namespace DataMapper;
+namespace App\Model\DataMapper;
+
+use DataMapper\Mapper;
+use DataMapper\Entity;
 
 class BatchReplace
 {
-    /** @var \DataMapper\Mapper */
+    /** @var Mapper */
     private $mapper;
+
+    /** @var Entity */
+    private $entity;
 
     /** @var array */
     private $data;
@@ -13,13 +19,10 @@ class BatchReplace
     /** @var string */
     private $field;
 
-    /** @var \DataMapper\Entity */
-    private $entity;
-
     /** @var array */
     private $keyReplacements = array();
 
-    public function __construct(\DataMapper\Mapper $mapper, array $data, $field)
+    public function __construct(Mapper $mapper, array $data, $field)
     {
         $this->mapper = $mapper;
 
@@ -29,7 +32,7 @@ class BatchReplace
     }
 
 
-    public function setEntityScope(\DataMapper\Entity $entity)
+    public function setEntityScope(Entity $entity)
     {
         $this->entity = $entity;
 

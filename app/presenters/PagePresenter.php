@@ -1,20 +1,29 @@
 <?php
 
+namespace App\Presenters;
+
+use App\Model\Api\ApiService;
+use App\Model\ClAccountInfo;
+use App\Model\Enum\ProjectType;
+use App\Model\Enum\TroubleState;
+use Nette\Diagnostics\Debugger;
+
 class PagePresenter extends BasePresenter
 {
-    /** @var \Model\Api\ApiService */
+
+    /** @var ApiService */
     protected $apiService;
 
-    /** @var \Model\ClAccountInfo */
+    /** @var ClAccountInfo */
     protected $clAccountInfo;
 
 
-    public function injectApiService(\Model\Api\ApiService $apiService)
+    public function injectApiService(ApiService $apiService)
     {
         $this->apiService = $apiService;
     }
 
-    public function injectClAccountInfo(\Model\ClAccountInfo $clAccountInfo)
+    public function injectClAccountInfo(ClAccountInfo $clAccountInfo)
     {
         $this->clAccountInfo = $clAccountInfo;
     }
@@ -24,7 +33,7 @@ class PagePresenter extends BasePresenter
         parent::startup();
 
         //TODO Solve deprecated Nette\Diagnostics\Debugger::$bar
-        Nette\Diagnostics\Debugger::$bar = FALSE;
+        Debugger::$bar = FALSE;
 
         // set XSRF-TOKEN cookie - for AngularJS built-in CSRF protection
         $this->getHttpResponse()->setCookie('XSRF-TOKEN', $this->getCsrfToken(), 0, NULL, NULL, NULL, FALSE);
@@ -32,8 +41,8 @@ class PagePresenter extends BasePresenter
         // HTML HEAD DATA - ENUMs
         $this->template->enums = array();
 
-        $this->template->enums['E_TroubleState'] = \Model\Enum\TroubleState::getConstants();
-        $this->template->enums['E_ProjectType'] = \Model\Enum\ProjectType::getConstants();
+        $this->template->enums['E_TroubleState'] = TroubleState::getConstants();
+        $this->template->enums['E_ProjectType'] = ProjectType::getConstants();
 
         $this->template->configSectionLoc = $this->context->configSectionLoc;
         $this->template->configSectionApp = $this->context->configSectionApp;
