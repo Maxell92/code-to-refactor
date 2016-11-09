@@ -1,5 +1,14 @@
 tracy:
 	showBar: false
 
+parameters:
+	config:
+		section:
+			loc: xxx
+			app: yyy
+
+services:
+	- App\Model\Config(%config.section.loc%, %config.section.app%)
+
 includes:
 	- extensions.neon

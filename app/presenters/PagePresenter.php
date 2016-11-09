@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Model\Api\ApiService;
 use App\Model\ClAccountInfo;
+use App\Model\Config;
 use App\Model\Enum\ProjectType;
 use App\Model\Enum\TroubleState;
 
@@ -15,6 +16,9 @@ class PagePresenter extends BasePresenter
 
     /** @var ClAccountInfo @inject */
     public $clAccountInfo;
+
+    /** @var Config @inject */
+    public $config;
 
     protected function startup()
     {
@@ -29,8 +33,8 @@ class PagePresenter extends BasePresenter
         $this->template->enums['E_TroubleState'] = TroubleState::getConstants();
         $this->template->enums['E_ProjectType'] = ProjectType::getConstants();
 
-        $this->template->configSectionLoc = $this->context->configSectionLoc;
-        $this->template->configSectionApp = $this->context->configSectionApp;
+        $this->template->configSectionLoc = $this->config->getLoc();
+        $this->template->configSectionApp = $this->config->getApp();
 
         $runningTracking = $this->dm->getDb()->select('dt')->from('tracking')
             ->where("person_id = %i AND [in] IS NULL", $this->clIdentity->getPersonId())
