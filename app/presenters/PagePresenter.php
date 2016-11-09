@@ -40,7 +40,7 @@ class PagePresenter extends BasePresenter
             ->where("person_id = %i AND [in] IS NULL", $this->clIdentity->getPersonId())
             ->execute()->fetchSingle();
 
-        $this->template->trackingStartTime = $runningTracking ? $runningTracking->format('Y-m-d H:i:s') : NULL;
+        $this->template->trackingStartTime = $runningTracking;
     }
 
 
