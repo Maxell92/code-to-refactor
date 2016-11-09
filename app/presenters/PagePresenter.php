@@ -11,22 +11,11 @@ use Nette\Diagnostics\Debugger;
 class PagePresenter extends BasePresenter
 {
 
-    /** @var ApiService */
-    protected $apiService;
+    /** @var ApiService @inject */
+    public $apiService;
 
-    /** @var ClAccountInfo */
-    protected $clAccountInfo;
-
-
-    public function injectApiService(ApiService $apiService)
-    {
-        $this->apiService = $apiService;
-    }
-
-    public function injectClAccountInfo(ClAccountInfo $clAccountInfo)
-    {
-        $this->clAccountInfo = $clAccountInfo;
-    }
+    /** @var ClAccountInfo @inject */
+    public $clAccountInfo;
 
     protected function startup()
     {
