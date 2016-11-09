@@ -6,7 +6,6 @@ use App\Model\Api\ApiService;
 use App\Model\ClAccountInfo;
 use App\Model\Enum\ProjectType;
 use App\Model\Enum\TroubleState;
-use Nette\Diagnostics\Debugger;
 
 class PagePresenter extends BasePresenter
 {
@@ -20,9 +19,6 @@ class PagePresenter extends BasePresenter
     protected function startup()
     {
         parent::startup();
-
-        //TODO Solve deprecated Nette\Diagnostics\Debugger::$bar
-        Debugger::$bar = FALSE;
 
         // set XSRF-TOKEN cookie - for AngularJS built-in CSRF protection
         $this->getHttpResponse()->setCookie('XSRF-TOKEN', $this->getCsrfToken(), 0, NULL, NULL, NULL, FALSE);
